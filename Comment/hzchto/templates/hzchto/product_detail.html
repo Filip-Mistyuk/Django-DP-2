@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+</head>
+<body>
+    <h1>Product Detail</h1>
+    <p>Name: {{ product.name }}</p>
+    <p>Description: {{ product.description }}</p>
+    <p>Price: {{ product.price }}</p>
+
+    <h2>Reviews:</h2>
+    <ul>
+        {% for review in reviews %}
+            <li>{{ review.author }} - {{ review.text }} - Rating: {{ review.rating }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add a Review:</h2>
+    <form method="post" action="{% url 'add_review' product.id %}">
+        {% csrf_token %}
+        <label for="author">Author:</label>
+        <input type="text" name="author" id="author"><br>
+        <label for="text">Text:</label>
+        <textarea name="text" id="text"></textarea><br>
+        <label for="rating">Rating:</label>
+        <input type="number" name="rating" id="rating" min="1" max="5"><br>
+        <button type="submit">Submit Review</button>
+    </form>
+</body>
+</html>
